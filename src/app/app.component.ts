@@ -5,17 +5,14 @@ import { tap } from 'rxjs';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
+  constructor(private readonly SearchService: SearchService) {}
 
-  constructor(private readonly SearchService: SearchService){
-
-    this.SearchService.search('angular')
-    .pipe(
-      tap(res => console.log(res)) 
-    )
-    .subscribe();
+  onSearch(term: string): void {
+    this.SearchService.search(term)
+      .pipe(tap((res) => console.log(res)))
+      .subscribe();
   }
-
 }

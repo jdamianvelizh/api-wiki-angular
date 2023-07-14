@@ -3,21 +3,20 @@ import { Injectable } from '@angular/core';
 import { Observable, pluck } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
-
 interface WikipediaResponse {
-    query: {
-        search: Article[]
-    }
+  query: {
+    search: Article[];
+  };
 }
 
 export interface Article {
-  ns: number
-  title: string
-  pageid: number
-  size: number
-  wordcount: number
-  snippet: string
-  timestamp: string
+  ns: number;
+  title: string;
+  pageid: number;
+  size: number;
+  wordcount: number;
+  snippet: string;
+  timestamp: string;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -31,10 +30,11 @@ export class SearchService {
       list: 'search',
       srsearch: term,
       utf8: '1',
+      //   srlimit: '10',
       origin: '*',
     };
-    return this.httpClient.get<WikipediaResponse>(environment.api, { params }).pipe(
-        pluck('query', 'search')
-    )
+    return this.httpClient
+      .get<WikipediaResponse>(environment.api, { params })
+      .pipe(pluck('query', 'search'));
   }
 }
